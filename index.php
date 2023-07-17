@@ -1,0 +1,142 @@
+<?php include './php/conexion.php'; ?>
+<?php $conexion = new conexion();
+ /*$sql = "SELECT * FROM `proyectos`";
+ $datos = $conexion->consultar($sql);*/
+ $proyectos= $conexion->consultar("SELECT * FROM `proyectos`");
+ ?>
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porfolio</title>
+    <script src="https://kit.fontawesome.com/c538ed8188.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  </head>
+  <body class="body text-light">
+    <header class="header">
+      <div class="btn-group ">
+        <nav class="navbar navbar-expand-lg navbar-light text-light">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <button class="btn dropdown-toggle text-light position-fixed" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a>MENU</a>
+                </button>
+                <ul class=" men dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="btnSM  text-light dropdown-item" aria-current="page" href="#sobre_mi">Sobre Mi</a></li>
+                  <li><a class="btnSM  text-light dropdown-item" aria-current="page" href="#proyectos">Proyectos</a></li>
+                  <li><a class="btnSM  text-light dropdown-item" aria-current="page" href="#contactame">Contactos</a></li>
+                </ul>
+              </ul>  
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section id="sobre_mi">
+        <div class="container-fluid sobreMI">
+          <div class="row gx-5">
+            <div class=" row bienvenido col-md-6">  
+              <div class="col-xl-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="textWelcome"> 
+                    <h2 class="titleOne">Ro Alvarez Aucar</h2>
+                    <p class="sbTitle fw-bold">Sobre Mi</p>
+                    <img src="./assets/img/yo_violeta_2.png" class="imgOne border-start border-bottom border-3" > 
+                </div>
+              </div>
+              <div class="secSM">
+                <p class="textSM fs-4">
+                  Vivo en Buenos Aires hace 9 años. Terminé la secundaria con el título de Bachiller en Informática, y posteriormente  me recibí de Técnica en Publicidad. 
+                  En el 2020 me gradué de Licenciada en Museología y Gestión del Patrimonio Cultural en la Universidad del Museo Social Argentino. 
+                  Tengo experiencia en diseño, fotografía y restauración digital de fotografías antiguas. Realicé prácticas profesionales en diferentes Museos de la ciudad.
+                  Actualmente me encuentro realizando los cursos que ofrece el programa de CodoaCodo y me desempeño como Técnica Administrativa en el Programa de Fiscalización y Monitoreo Digital del SENASA.
+                </p>
+                <div class="titleTwo">
+                  <p class="mx-3" style="font-size: 30pt;">Te invito a conocer</p>
+                  <h5>Mis proyectos</h5>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>  
+      <section id="Proyectos" >
+        <h5 class="text-start border-3 border-start border-top titleP">Proyectos</h5>  
+          <div class="container pb-5">
+            <div class ="row row-cols-1 row-cols-md-3 g-4 border-3 border-bottom border-end proyecP">
+              <?php 
+                foreach($proyectos as $proyecto){ 
+              ?>
+              <div class="col">
+                <div class="card border border-3 shadow w-100">
+                  <a>
+                    <img class="card-img-top" width="100" src="imagenes/<?php echo $proyecto['imagen'];?>" alt="">
+                  </a>
+                  <div class="card-body">
+                    <h5 class="card-title text-dark">
+                      <?php echo $proyecto['nombre'];?>
+                    </h5>
+                    <p class="card-text text-dark">
+                      <?php echo $proyecto['descripcion'];?>
+                    </p>
+                    <a href="<?php #echo $proyecto['url'];?>">Ingresa a la pagina</a>
+                    <a href="<?php #echo $proyecto['url_github'];?>">Ingresa al GitHub</a>
+                  </div>
+                </div>
+              </div>
+              <?php 
+                         } 
+              ?>
+            </div>
+          </div>
+      </section>
+      <section id="contactame">
+        <div class="padreContac col-xs-12 col-s-12">
+          <h5 class="text-end border-3 border-end border-top contac">Contacteme</h5>  
+        </div>
+        <div class="container d-flex justify-content-center mb-5 contactame border-3 border-bottom border-start py-5">
+          <div class="border-3 col-8"  >
+            <form action="enviar.php" method='post' >
+              <div class="mb-3 ">
+                <input type="text" class="form-control" id="name" placeholder="Nombre" required>
+                  <br>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required>
+                  <br>
+                  <div id="emailHelp" class="form-text text-light">Nunca compartiremos su correo electrónico con nadie más.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Motivo" required>
+                  <br>
+                  <textarea class="form-control" name="contenido" id="contenido" cols="10" rows="5" placeholder="Mensaje" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-light text-light"> Enviar Mail </button>
+                <button type="reset"  class="btn btn-light text-light"> Borrar </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <div class="row">
+          <a href="https://instagram.com/mi_ciudadimaginaria?igshid=ZDc4ODBmNjlmNQ==" target="_blank"><i class="g-3 fa-brands fa-instagram iconI"></i></a>
+          <a href="https://www.linkedin.com/in/roc%C3%ADo-alvarez-aucar-63565377/" target="_blank"><i class="g-3 fa-brands fa-linkedin iconL"></i></a>
+        </div>
+        <?php include './php/footer.php'; ?>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>        
+        <script src="./js/envio.js"></script>
+        <script src="./js/2d.js"></script>
+      </footer>
+    </body>
+</html>
